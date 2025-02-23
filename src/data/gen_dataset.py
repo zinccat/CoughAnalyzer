@@ -17,7 +17,7 @@ def wav_to_image(
     label_dir: str,
     output_fileid: int,
     output_size: Tuple[int, int] = (640, 640),
-    cough_class: int = 1,
+    cough_class: int = 0,
 ) -> Tuple[bool, Path, Path]:
     """
     Function to convert a WAV file to an image
@@ -109,13 +109,13 @@ def wav_to_image(
                     f2.write(
                         str(cough_class)
                         + " "
-                        + str((start + end) // 2)  # x center
+                        + str( float((start + end) // 2) / output_size[0])  # x center
                         + " "
-                        + "0"  # y center
+                        + "0.5"  # y center
                         + " "
-                        + str(end - start)  # width
+                        + str( float(end - start)  /  output_size[0])# width
                         + " "
-                        + "640"  # height
+                        + "1"  # height
                         + "\n"
                     )
 
@@ -139,7 +139,7 @@ if __name__ == "__main__":
     # )
 
     # read in all the files
-    data_dir = "CoughSegmentation/Data"
+    data_dir = "../CoughSegmentation/Data"
 
     # filter out the files that are not wav files
     wav_files = [f for f in os.listdir(data_dir) if f.endswith(".wav")]
