@@ -7,6 +7,7 @@ from typing import Tuple
 from pathlib import Path
 from sklearn.model_selection import train_test_split
 from tqdm import tqdm
+import json
 
 
 def wav_to_image(
@@ -17,14 +18,39 @@ def wav_to_image(
     output_fileid: int,
     output_size: Tuple[int, int] = (640, 640),
     cough_class: int = 1,
-):
+) -> Tuple[bool, Path, Path]:
+    """
+    Function to convert a WAV file to an image
+    Parameters
+    ----------
+    wav_filename : str
+        Path to the WAV file
+    label_filename : str
+        Path to the label file
+    images_dir : str
+        Path to the directory where the images will be saved
+    label_dir : str
+        Path to the directory where the labels will be saved
+    output_fileid : int
+        File ID to use for the output image
+    output_size : Tuple[int, int]
+        Size of the output image
+    cough_class : int
+        Class of the cough
+    Returns
+    -------
+    bool
+        True if the image was created successfully, False otherwise
+    """
+
     # Read the WAV file
     sample_rate, data = wavfile.read(wav_filename)
 
     # Create the time axis for plotting (limited to 11 seconds)
     if len(data) > 11 * sample_rate:
         # If the audio is longer than 11 seconds, remove it
-        return
+        print(f"Audio file {wav_filename} is longer than 11 seconds. Skipping...")
+        return False, None, None
     audio_duration = len(data) / sample_rate
     scale = 11 / audio_duration
     # resizes the data to 11 seconds
@@ -96,6 +122,11 @@ def wav_to_image(
     else:
         with open(Path(label_dir) / (str(output_fileid) + ".txt"), "w") as f2:
             f2.write("")
+    return (
+        True,
+        Path(images_dir) / (str(output_fileid) + ".png"),
+        Path(label_dir) / (str(output_fileid) + ".txt"),
+    )
 
 
 if __name__ == "__main__":
@@ -122,6 +153,8 @@ if __name__ == "__main__":
         wav_files_test, test_size=0.5, random_state=42
     )
 
+    mapping = {}
+
     # create the directories
     images_dir = "data/images"
     label_dir = "data/labels"
@@ -138,13 +171,15 @@ if __name__ == "__main__":
     if not os.path.exists(label_dir_train):
         os.makedirs(label_dir_train)
     for i, wav_file in enumerate(tqdm(wav_files_train)):
-        wav_to_image(
+        success, image_path, label_path = wav_to_image(
             os.path.join(data_dir, wav_file),
             os.path.join(data_dir, wav_file.replace(".wav", ".txt")),
             images_dir_train,
             label_dir_train,
             i + 1,
         )
+        if success:
+            mapping[wav_file] = (str(image_path), str(label_path))
 
     images_dir_test = "data/images/test"
     label_dir_test = "data/labels/test"
@@ -153,13 +188,15 @@ if __name__ == "__main__":
     if not os.path.exists(label_dir_test):
         os.makedirs(label_dir_test)
     for i, wav_file in enumerate(tqdm(wav_files_test)):
-        wav_to_image(
+        success, image_path, label_path = wav_to_image(
             os.path.join(data_dir, wav_file),
             os.path.join(data_dir, wav_file.replace(".wav", ".txt")),
             images_dir_test,
             label_dir_test,
             i + 1,
         )
+        if success:
+            mapping[wav_file] = (str(image_path), str(label_path))
 
     images_dir_val = "data/images/val"
     label_dir_val = "data/labels/val"
@@ -168,10 +205,15 @@ if __name__ == "__main__":
     if not os.path.exists(label_dir_val):
         os.makedirs(label_dir_val)
     for i, wav_file in enumerate(tqdm(wav_files_val)):
-        wav_to_image(
+        success, image_path, label_path = wav_to_image(
             os.path.join(data_dir, wav_file),
             os.path.join(data_dir, wav_file.replace(".wav", ".txt")),
             images_dir_val,
             label_dir_val,
             i + 1,
         )
+        if success:
+            mapping[wav_file] = (str(image_path), str(label_path))
+
+    with open("data/mapping.json", "w") as f:
+        json.dump(mapping, f)
