@@ -17,4 +17,4 @@ Validation Set Labels:
 ![](src/yolo/runs/detect/val/val_batch0_labels.jpg)
 
 Validation Set Predictions (conf=0.3, iou=0.4):
-![](src/yolo/runs/detect/val/val_batch0_labels.jpg)
+![](src/yolo/runs/detect/val/val_batch0_pred.jpg)
