@@ -1,3 +1,7 @@
+data/images/
+data/labels/
+data/mapping.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

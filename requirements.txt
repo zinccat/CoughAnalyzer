@@ -1,0 +1,8 @@
+numpy
+matplotlib
+tqdm
+scikit-learn
+scipy
+pillow
+ruff
+librosa
