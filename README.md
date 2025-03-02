@@ -4,8 +4,11 @@
 Download data with
 `git clone https://github.com/roneelsharan/CoughSegmentation`
 
+Requirements: `pip install -r requirements.txt`
+
 Check `notebooks/EDA.ipynb` for EDA
 
+### Adding noise
 To add background noise to the audio, run `src/data/add_noise.py`with different optional flags for adding different types of noises. If you add no flags, then it will just add white noise at level 0.01. 
 
 `--pink True` to add pink noise. Default is False 
@@ -28,13 +31,21 @@ To add background noise to the audio, run `src/data/add_noise.py`with different 
 
 Running this file will a new directory called "data_w_noise_{specifications}" that adds background noise to the original wav files. 
 
+### Image segmentation
 For image segmentation, run `python src/data/gen_dataset.py` to generate the dataset with format as
 ![](figures/data_format.jpg)
 
-Requirements: `pip install -r requirements.txt`
 
 
-## Yolo Cough Detection Results
+### Audio classification with Wav2Vec2
+Generate HuggingFace dataset with `python src/data/hf_dataset.py`
+
+Train and evaluate the model with `python src/models/wav2vec2.py`
+
+This should give around 95% acc on test set.
+
+## Results
+### Yolo Cough Detection Results
 Validation Set Labels:
 ![](src/yolo/runs/detect/val/val_batch0_labels.jpg)
 

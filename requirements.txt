@@ -6,3 +6,6 @@ scipy
 pillow
 ruff
 librosa
+transformers
+datasets
+evaluate
