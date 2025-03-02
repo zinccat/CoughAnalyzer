@@ -1,7 +1,7 @@
 data/images/
 data/labels/
 data/mapping.json
-data*/
+data_w_noise*/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
