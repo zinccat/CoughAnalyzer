@@ -6,9 +6,7 @@ Download data with
 
 Check `notebooks/EDA.ipynb` for EDA
 
-To add background noise to the audio, run `add_noise.py`, which will populate a new directory called "data_w_noise" that adds background noise to the original wav files.
-
-To add background noise to the audio, run `add_noise.py`with different optional flags for adding different types of noises. If you add no flags, then it will just add white noise at level 0.01. 
+To add background noise to the audio, run `src/data/add_noise.py`with different optional flags for adding different types of noises. If you add no flags, then it will just add white noise at level 0.01. 
 
 `--pink True` to add pink noise. Default is False 
 
