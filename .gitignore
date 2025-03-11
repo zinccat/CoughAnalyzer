@@ -1,5 +1,6 @@
 data/images/
 data/labels/
+data_inference/images
 data/mapping.json
 
 # Byte-compiled / optimized / DLL files
