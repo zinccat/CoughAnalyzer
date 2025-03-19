@@ -31,6 +31,20 @@ To add background noise to the audio, run `src/data/add_noise.py`with different 
 
 Running this file will a new directory called "data_w_noise_{specifications}" that adds background noise to the original wav files. 
 
+### Synthetic Data Generation Pipeline
+For a complete synthetic data generation pipeline that generates noisy data and creates a HuggingFace dataset in one step, use the `src/data/synthetic_data.py` script:
+
+```bash
+python src/data/synthetic_data.py path/to/config.json
+```
+
+This script takes a JSON configuration file that allows you to customize noise parameters (see config.json for the appropriate structure).
+The pipeline performs the following steps:
+1. Generates noisy audio data using the configured noise parameters
+2. Creates a HuggingFace dataset from the generated noisy data
+
+This allows for easy experimentation with different noise configurations without manually running multiple scripts.
+
 ### Image segmentation
 For image segmentation, run `python src/data/gen_dataset.py` to generate the dataset with format as
 ![](figures/data_format.jpg)
