@@ -9,3 +9,5 @@ librosa
 transformers
 datasets
 evaluate
+tensorflow_hub
+tensorflow==2.19.0
