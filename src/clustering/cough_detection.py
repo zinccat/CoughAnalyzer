@@ -30,13 +30,15 @@ def cough_detection(audio_filename):
     # YAMNet output time per frame (0.96 seconds per frame)
 
     frame_duration = 0.96  # duration of each frame in seconds
-    start_time_stamps = (np.arange(0, len(audio_data) / sr, frame_duration / 2)[:-1])  # Start time stamps for frames
+    # start_time_stamps = (np.arange(0, len(audio_data) / sr, frame_duration / 2)[:-1])  # Start time stamps for frames
 
     target_class = "Cough"
 
     detection_times_in_secs = []
-    for i, timestamp in enumerate(start_time_stamps): # for each timestamp
+    num_frames = scores.shape[0]
+    for i in range(num_frames):
       # check if target class is within the top three most likely class
+      timestamp = i * (frame_duration / 2)
       top_three_class_indices = np.argsort(scores[i, :])[-3:]
       index_of_target_class = df[df['display_name'] == target_class]['index'].values[0]
 

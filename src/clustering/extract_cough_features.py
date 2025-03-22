@@ -1,8 +1,6 @@
 from cough_detection import cough_detection
-from sklearn.cluster import KMeans
 import librosa
 import numpy as np
-from sklearn.preprocessing import StandardScaler
 import argparse
 import os
 import pandas as pd
