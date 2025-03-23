@@ -13,8 +13,8 @@ module load python/3.10.9-fasrc01
 python -m venv /tmp/myenv_$SLURM_JOB_ID
 source /tmp/myenv_$SLURM_JOB_ID/bin/activate
 pip install -r ../../requirements.txt
-python extract_cough_features.py --audio_directory ~/cough_mp3_full --output_filename full_output
-# python extract_cough_features.py --audio_directory ~/cough_mp3_full/Files_11_mp3 --output_filename file11_output
+
+python extract_cough_features.py --audio_directory ~/cough_mp3_full/Files_5_mp3 --output_filename file5_output
 
 
 # python extract_cough_features.py --audio_directory ./fake_file --output_filename fake_output
