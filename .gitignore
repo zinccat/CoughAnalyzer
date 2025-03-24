@@ -176,3 +176,7 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+data/dataset_hf_white0.001/
+data/dataset_hf_white0.01/
+data/dataset_hf_white0_pink0.0001/
+data/coughvid-wav.zip
