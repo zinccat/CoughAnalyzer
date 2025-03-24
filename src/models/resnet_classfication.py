@@ -92,13 +92,13 @@ class CustomImageDataset(Dataset):
                 else:
                     raise ValueError(f"Unknown label type {self.label_type}.")
         except Exception as e:
-            print(f"Error reading label file {label_path}: {e}. Setting label=0.")
-            label = 0
+            raise ValueError(f"Error reading label file {label_path}: {e}")
 
         return image, label
 
 
-def train():
+def train(label_type = "status"):
+    print(f"Training for label type: {label_type}")
     train_transform = transforms.Compose(
         [
             transforms.Resize((224, 224)),
@@ -114,16 +114,16 @@ def train():
         ]
     )
 
-    label_type = "status"  #'gender' #'fever_muscle_pain' #'status'  # Change this to 'respiratory_condition' or 'fever_muscle_pain' as needed
+      #'gender' #'fever_muscle_pain' #'status'  # Change this to 'respiratory_condition' or 'fever_muscle_pain' as needed
 
     train_dataset = CustomImageDataset(
-        images_dir="data/coughvid_images/train",
+        images_dir="data/coughvid_images_cropped/train",
         labels_dir="data/coughvid_labels/train",
         transform=train_transform,
         label_type=label_type,
     )
     val_dataset = CustomImageDataset(
-        images_dir="data/coughvid_images/val",
+        images_dir="data/coughvid_images_cropped/val",
         labels_dir="data/coughvid_labels/val",
         transform=val_transform,
         label_type=label_type,
@@ -138,13 +138,13 @@ def train():
     num_features = model.fc.in_features
     num_classes = 3 if label_type == "status" or label_type == "gender" else 2
 
-    dropout_rate = 0.0  # 2
+    dropout_rate = 0.8  # 2
     model.fc = nn.Sequential(
         nn.Dropout(dropout_rate), nn.Linear(num_features, num_classes)
     )
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.AdamW(model.parameters(), lr=1e-4, weight_decay=1e-5)
+    optimizer = optim.AdamW(model.parameters(), lr=1e-4) #, weight_decay=1e-5)
     # only train the last layer
     # optimizer = optim.AdamW(model.fc.parameters(), lr=3e-4, weight_decay=1e-5)
 
@@ -206,4 +206,7 @@ def train():
 
 if __name__ == "__main__":
     freeze_support()
-    train()
+    train(label_type="status")
+    train(label_type="respiratory_condition")
+    train(label_type="fever_muscle_pain")
+    train(label_type="gender")

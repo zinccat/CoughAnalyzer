@@ -86,7 +86,7 @@ def compute_label_distribution(folder_path, label_type):
 
 # Example usage:
 if __name__ == "__main__":
-    folder_path = "data/coughvid_labels/train"
-    label_type = 'gender' #"status"  # Example: 'respiratory_condition', 'fever_muscle_pain', 'status', or 'gender'
+    folder_path = "data/coughvid_labels/val"
+    label_type = 'fever_muscle_pain'  # Example: 'respiratory_condition', 'fever_muscle_pain', 'status', or 'gender'
     distribution = compute_label_distribution(folder_path, label_type)
     print(f"{label_type}:", distribution)
