@@ -180,3 +180,9 @@ data/dataset_hf_white0.001/
 data/dataset_hf_white0.01/
 data/dataset_hf_white0_pink0.0001/
 data/coughvid-wav.zip
+data/public_dataset/
+data/filtered_coughvid/
+data/coughvid_images/
+data/coughvid_labels/
+data/coughvid_images_cropped/
+data/*.zip
