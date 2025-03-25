@@ -10,7 +10,7 @@ in the pictures below, true coughs in purple, while blue and red are for alterna
 
 With audio file 'X120001 (Contact 6).mp3', however, where the output is [3.36, 5.28], coughs are detected but is not overlapped. 
 
-![](examle2.png)
+![](example2.png)
 
 
 Since overlapping is not a guarantee, we always sample audio that is included in all the intervals output by the model. 
