@@ -53,6 +53,11 @@ def wav_to_image(
         # If the audio is longer than 11 seconds, remove it
         print(f"Audio file {wav_filename} is longer than 11 seconds. Skipping...")
         return False, None, None
+    
+    if len(data) < 512:  # same as n_fft
+        print(f"Audio file {wav_filename} is too short. Skipping...")
+        return False, None, None
+    
     audio_duration = len(data) / sample_rate
     scale = 11 / audio_duration
     # resizes the data to 11 seconds
@@ -124,6 +129,7 @@ def wav_to_image(
         Path(images_dir) / (str(output_fileid) + ".png"),
         Path(label_dir) / (str(output_fileid) + ".txt"),
     )
+    plt.close("all")
 
 
 if __name__ == "__main__":
@@ -136,7 +142,7 @@ if __name__ == "__main__":
     # )
 
     # read in all the files
-    data_dir = "D:\Download\CoughSegmentation-main\CoughSegmentation-main\data"
+    data_dir = "../CoughSegmentation/Data"
 
     # filter out the files that are not wav files
     wav_files = [f for f in os.listdir(data_dir) if f.endswith(".wav")]
@@ -153,16 +159,16 @@ if __name__ == "__main__":
     mapping = {}
 
     # create the directories
-    images_dir = "data_pink0.0001/images"
-    label_dir = "data_pink0.0001/labels"
+    images_dir = "data_mfcc/images"
+    label_dir = "data_mfcc/labels"
     if not os.path.exists(images_dir):
         os.makedirs(images_dir)
     if not os.path.exists(label_dir):
         os.makedirs(label_dir)
 
     # loop through the files and create the images
-    images_dir_train = "data_pink0.0001/images/train"
-    label_dir_train = "data_pink0.0001/labels/train"
+    images_dir_train = "data_mfcc/images/train"
+    label_dir_train = "data_mfcc/labels/train"
     if not os.path.exists(images_dir_train):
         os.makedirs(images_dir_train)
     if not os.path.exists(label_dir_train):
@@ -178,8 +184,8 @@ if __name__ == "__main__":
         if success:
             mapping[wav_file] = (str(image_path), str(label_path))
 
-    images_dir_test = "data_pink0.0001/images/test"
-    label_dir_test = "data_pink0.0001/labels/test"
+    images_dir_test = "data_mfcc/images/test"
+    label_dir_test = "data_mfcc/labels/test"
     if not os.path.exists(images_dir_test):
         os.makedirs(images_dir_test)
     if not os.path.exists(label_dir_test):
@@ -195,8 +201,8 @@ if __name__ == "__main__":
         if success:
             mapping[wav_file] = (str(image_path), str(label_path))
 
-    images_dir_val = "data_pink0.0001/images/val"
-    label_dir_val = "data_pink0.0001/labels/val"
+    images_dir_val = "data_mfcc/images/val"
+    label_dir_val = "data_mfcc/labels/val"
     if not os.path.exists(images_dir_val):
         os.makedirs(images_dir_val)
     if not os.path.exists(label_dir_val):
