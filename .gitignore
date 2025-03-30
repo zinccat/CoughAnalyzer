@@ -1,7 +1,6 @@
 data/images/
 data/labels/
 data/
-data_inference/
 data_mfcc/
 data/mapping.json
 data_w_noise*/
