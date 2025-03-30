@@ -84,8 +84,8 @@ def run_yolo_inference(model_path, images_dir, output_dir, limit=None):
         print(f"Processed and saved results to {save_path}")
 
 if __name__ == "__main__":
-    model_path = './runs/detect/train/weights/best.pt'
-    images_dir = '../../data_inference/images/File1'
-    output_dir = '../../data_inference/yolo_inference/File1'
+    model_path = './runs/detect/train2/weights/best.pt'
+    images_dir = '../../data_inference_mfcc/images/File1'
+    output_dir = '../../data_inference_mfcc/yolo_inference/File1'
     
     run_yolo_inference(model_path, images_dir, output_dir, 20)

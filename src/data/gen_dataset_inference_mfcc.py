@@ -102,7 +102,7 @@ def wav_to_mfcc_image(
     data = data.astype(float)
 
     # Normalize to [-1, 1]
-    data = data / np.max(np.abs(data))
+    # data = data / np.max(np.abs(data))
 
     # Compute MFCCs
     mfccs = librosa.feature.mfcc(y=data, sr=sample_rate, n_mfcc=n_mfcc, n_fft=n_fft)
