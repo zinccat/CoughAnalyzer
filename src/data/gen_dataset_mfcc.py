@@ -77,7 +77,7 @@ def wav_to_image(
     plt.close()
 
     # open fig and resize it to 640x640
-    img = Image.open(Path(images_dir) / (str(output_fileid) + ".png")).convert("L")
+    img = Image.open(Path(images_dir) / (str(output_fileid) + ".png"))
     # resize the image
     img = img.resize(output_size)
     # save the image
