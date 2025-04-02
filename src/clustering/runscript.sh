@@ -16,6 +16,6 @@ pip install -r ../../requirements.txt
 
 python extract_cough_features.py --audio_directory ~/cough_mp3_full/Files_5_mp3 --output_filename file5_output
 
-
+# python extract_cough_features.py --audio_directory Data --output_filename online_data_output
 # python extract_cough_features.py --audio_directory ./fake_file --output_filename fake_output
 # python extract_cough_features.py --audio_filename ~/cough_mp3_full/Files_11_mp3/X320112\ \(Month\ 20\).mp3

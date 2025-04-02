@@ -46,7 +46,7 @@ def save_cough_features(audio_directory, output_filename):
 
     for root, dirs, files in os.walk(audio_directory):
         for file in files:
-            if file.endswith('.mp3'):
+            if file.endswith('.mp3'): #change to '.wav' to analyze the CoughSegmentation dataset
                 audio_filename = os.path.join(root, file)
                 print(audio_filename)
                 detection_times = cough_detection(audio_filename)
