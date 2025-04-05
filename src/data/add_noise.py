@@ -56,7 +56,8 @@ def add_noise(
             shutil.copy(src_txt, dst_txt)
 
     if beeping:
-        beep_file = "beeping.wav"
+        # beep_file = "beeping.wav"
+        beep_file = os.path.join(os.path.dirname(__file__), "beeping.wav")  # Absolute path
         beep_sound = AudioSegment.from_wav(beep_file)
     n = 0
     for input_file in coughing_files:

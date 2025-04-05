@@ -68,4 +68,15 @@ Validation Set Labels vs Validation Set Predictions:
   </tr>
 </table>
 
+# Using Noisy Data for Segmentation Testing:
+- Clone the coughSegmentation dataset into the root of your local reposiotyr (in CoughAnalyzer/)
+- Run a command like:  python3 src/data/add_noise.py \
+  --pink True \
+  --white_level 0.03 \
+  --noise_burst_num 10 \
+  --noise_burst_duration 0.5 \
+  --beeping True \
+  --talking False
+
+to generate noisy audio files. 
 
