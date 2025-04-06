@@ -247,16 +247,16 @@ if __name__ == "__main__":
     mapping = {}
 
     # create the directories
-    images_dir = "data_mfcc_padding_11/images"
-    label_dir = "data_mfcc_padding_11/labels"
+    images_dir = "data_mfcc_padding_11_noise/images"
+    label_dir = "data_mfcc_padding_11_noise/labels"
     if not os.path.exists(images_dir):
         os.makedirs(images_dir)
     if not os.path.exists(label_dir):
         os.makedirs(label_dir)
 
     # loop through the files and create the images
-    images_dir_train = "data_mfcc_padding_11/images/train"
-    label_dir_train = "data_mfcc_padding_11/labels/train"
+    images_dir_train = "data_mfcc_padding_11_noise/images/train"
+    label_dir_train = "data_mfcc_padding_11_noise/labels/train"
     if not os.path.exists(images_dir_train):
         os.makedirs(images_dir_train)
     if not os.path.exists(label_dir_train):
@@ -274,8 +274,8 @@ if __name__ == "__main__":
         if success:
             mapping[wav_file] = (str(image_path), str(label_path))
 
-    images_dir_test = "data_mfcc_padding_11/images/test"
-    label_dir_test = "data_mfcc_padding_11/labels/test"
+    images_dir_test = "data_mfcc_padding_11_noise/images/test"
+    label_dir_test = "data_mfcc_padding_11_noise/labels/test"
     if not os.path.exists(images_dir_test):
         os.makedirs(images_dir_test)
     if not os.path.exists(label_dir_test):
@@ -292,8 +292,8 @@ if __name__ == "__main__":
         if success:
             mapping[wav_file] = (str(image_path), str(label_path))
 
-    images_dir_val = "data_mfcc_padding_11/images/val"
-    label_dir_val = "data_mfcc_padding_11/labels/val"
+    images_dir_val = "data_mfcc_padding_11_noise/images/val"
+    label_dir_val = "data_mfcc_padding_11_noise/labels/val"
     if not os.path.exists(images_dir_val):
         os.makedirs(images_dir_val)
     if not os.path.exists(label_dir_val):
@@ -312,5 +312,5 @@ if __name__ == "__main__":
             
     print(stereo_audio_files)
 
-    with open("data_mfcc_padding_11/mapping.json", "w") as f:
+    with open("data_mfcc_padding_11_noise/mapping.json", "w") as f:
         json.dump(mapping, f)
