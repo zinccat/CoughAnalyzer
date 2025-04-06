@@ -45,6 +45,7 @@ Running this file will a new directory called "data_w_noise_{specifications}" th
 - `src/yolo/runs/detect/train`: 100 epochs, 640*640, waveform, image resized, 11s max length for training (any length for inference)
 - `src/yolo/runs/detect/train2`: 100 epochs, 640*640, mfcc, image resized, 11s max length (any length for inference)
 - `src/yolo/runs/detect/train5`: 150 epochs, 640*640, mfcc, image truncated/padded (always 11s), mosaic stopped for last 60 epochs
+- `src/yolo/runs/detect/train3`: 150 epochs, 640*640, mfcc, image truncated/padded (always 11s), training data with noise, mosaic stopped for last 60 epochs
 
 
 ### Audio classification with Wav2Vec2
@@ -58,13 +59,13 @@ This should give around 95% accuracy on the test set.
 ### Yolo Cough Detection Results
 Metrics:
 
-<img src="src/yolo/runs/detect/train5/results.png" alt="Data Format" width="600"/>
+<img src="src/yolo/runs/detect/train3/results.png" alt="Data Format" width="600"/>
 
 Validation Set Labels vs Validation Set Predictions:
 <table>
   <tr>
-    <td><img src="src/yolo/runs/detect/train5/val_batch0_labels.jpg" width="600"/></td>
-    <td><img src="src/yolo/runs/detect/train5/val_batch0_pred.jpg" width="600"/></td>
+    <td><img src="src/yolo/runs/detect/train3/val_batch0_labels.jpg" width="600"/></td>
+    <td><img src="src/yolo/runs/detect/train3/val_batch0_pred.jpg" width="600"/></td>
   </tr>
 </table>
 
