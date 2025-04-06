@@ -56,7 +56,7 @@ Train and evaluate the model with `python src/models/wav2vec2.py`
 This should give around 95% accuracy on the test set.
 
 ## Results
-### Yolo Cough Detection Results
+### Yolo Cough Detection Results (Train3)
 Metrics:
 
 <img src="src/yolo/runs/detect/train3/results.png" alt="Data Format" width="600"/>
