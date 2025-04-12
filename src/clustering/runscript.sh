@@ -16,7 +16,7 @@ pip install -r ../../requirements.txt
 
 # python extract_cough_features.py --audio_directory ~/cough_mp3_full/Files_5_mp3 --output_filename file5_output
 
-python yamnet_evaluation_cough_intervals.py --audio_directory ~/AC297r/CoughAnalyzer/data_w_noise_white0.03_nbn10_nbd0.5_w-beeping_w-talking/ --output_filename data_w_noise_white0.03_nbn10_nbd0.5_w-beeping_w-talking_yamnet_cough_intervals
+python yamnet_evaluation_cough_intervals.py --audio_directory ~/AC297r/CoughAnalyzer/data_w_noise_white0.03_nbn10_nbd0.5_w-beeping_w-talking/ --output_filename data_w_noise_white0.03_nbn10_nbd0.5_w-beeping_w-talking_yamnet_cough_intervals_top10 --top_n 10
 
 # python extract_cough_features.py --audio_directory Data --output_filename online_data_output
 # python extract_cough_features.py --audio_directory ./fake_file --output_filename fake_output

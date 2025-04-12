@@ -5,7 +5,7 @@ import tensorflow as tf
 from collections import defaultdict
 import argparse
 
-def cough_detection(audio_filename):
+def cough_detection(audio_filename, top_n = 7):
     
     # Load audio
     audio_data, sr = librosa.load(audio_filename, sr=16000)  # YAMNet needs 16kHz
@@ -39,7 +39,7 @@ def cough_detection(audio_filename):
     for i in range(num_frames):
       # check if target class is within the top three most likely class
       timestamp = i * (frame_duration / 2)
-      top_three_class_indices = np.argsort(scores[i, :])[-3:]
+      top_three_class_indices = np.argsort(scores[i, :])[-top_n:]
       index_of_target_class = df[df['display_name'] == target_class]['index'].values[0]
 
       if index_of_target_class in top_three_class_indices:

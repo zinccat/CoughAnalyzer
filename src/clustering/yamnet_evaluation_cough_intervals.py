@@ -27,7 +27,7 @@ def extract_cough_segment_intervals(audio_filename, detection_times):
 
     return merged_intervals
 
-def save_cough_intervals(audio_directory, output_filename):
+def save_cough_intervals(audio_directory, output_filename, top_n):
     df = pd.DataFrame(columns=['intervals'])
 
     for root, dirs, files in os.walk(audio_directory):
@@ -35,7 +35,7 @@ def save_cough_intervals(audio_directory, output_filename):
             if file.endswith('.wav'): #change to '.wav' to analyze the CoughSegmentation dataset
                 audio_filename = os.path.join(root, file)
                 print(audio_filename)
-                detection_times = cough_detection(audio_filename)
+                detection_times = cough_detection(audio_filename, top_n)
                 if len(detection_times) > 0:
                     cough_intervals = extract_cough_segment_intervals(audio_filename, detection_times)
                     df.loc[audio_filename] = [cough_intervals] 
@@ -45,5 +45,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Start a specific server instance.")
     parser.add_argument("--audio_directory", type=str, required=True, help="audio files directory")
     parser.add_argument("--output_filename", type=str, required=True, help="csv output filename")
+    parser.add_argument("--top_n", type=str, required=True, help="csv output filename")
     args = parser.parse_args()
-    save_cough_intervals(args.audio_directory, args.output_filename)
+    save_cough_intervals(args.audio_directory, args.output_filename, int(args.top_n))
