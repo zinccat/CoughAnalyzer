@@ -5,7 +5,7 @@ import tensorflow as tf
 from collections import defaultdict
 import argparse
 
-def cough_detection(audio_filename, top_n = 7):
+def cough_detection(audio_filename, top_n = 3):
     
     # Load audio
     audio_data, sr = librosa.load(audio_filename, sr=16000)  # YAMNet needs 16kHz
