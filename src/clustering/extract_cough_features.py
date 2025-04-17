@@ -32,7 +32,7 @@ def extract_cough_segments(audio_filename, detection_times):
         cough_segment = audio_data[start_sample:end_sample]
         cough_segments = np.concatenate([cough_segments, cough_segment]) 
     
-    return cough_segments
+    return cough_segments, merged_intervals
 
 def extract_features(audio_filename, audio_segment):
     # Extract features like MFCCs from each segment
@@ -43,6 +43,9 @@ def extract_features(audio_filename, audio_segment):
 
 def save_cough_features(audio_directory, output_filename):
     df = pd.DataFrame(columns=[f'feature {i}' for i in range(1, 14)])
+    path = os.path.expanduser(audio_directory)
+    new_dir = os.path.basename(path)
+    os.makedirs(new_dir, exist_ok=True)
 
     for root, dirs, files in os.walk(audio_directory):
         for file in files:
@@ -51,7 +54,15 @@ def save_cough_features(audio_directory, output_filename):
                 print(audio_filename)
                 detection_times = cough_detection(audio_filename)
                 if len(detection_times) > 0:
-                    cough_segments = extract_cough_segments(audio_filename, detection_times)
+                    cough_segments, merged_intervals = extract_cough_segments(audio_filename, detection_times)
+
+                    # Save start/end timestamps to .txt file
+                    txt_filename = os.path.join(new_dir, f"{os.path.splitext(file)[0]}.txt")
+                    with open(txt_filename, 'w') as f:
+                        for start, end in merged_intervals:
+                            f.write(f"{start:.2f}\t{end:.2f}\n")  # tab-separated
+
+                    # save mfcc features
                     feature_row = extract_features(audio_filename, cough_segments)
                     df.loc[audio_filename] = feature_row 
     df.to_csv(f'{output_filename}.csv', index=True, header=True)
