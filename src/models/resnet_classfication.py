@@ -117,13 +117,13 @@ def train(label_type = "status"):
       #'gender' #'fever_muscle_pain' #'status'  # Change this to 'respiratory_condition' or 'fever_muscle_pain' as needed
 
     train_dataset = CustomImageDataset(
-        images_dir="data/coughvid_images_cropped/train",
+        images_dir="data/coughvid_images/train",
         labels_dir="data/coughvid_labels/train",
         transform=train_transform,
         label_type=label_type,
     )
     val_dataset = CustomImageDataset(
-        images_dir="data/coughvid_images_cropped/val",
+        images_dir="data/coughvid_images/val",
         labels_dir="data/coughvid_labels/val",
         transform=val_transform,
         label_type=label_type,
