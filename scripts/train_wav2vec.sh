@@ -11,4 +11,4 @@
 # module load Mambaforge/23.11.0-fasrc01 cmake/3.27.5-fasrc01 gcc/14.2.0-fasrc01 cuda/12.4.1-fasrc01 cudnn/9.5.1.17_cuda12-fasrc01
 # micromamba activate ml
 
-python src/models/wav2vec2_real.py
+python src/models/wav2vec2.py
