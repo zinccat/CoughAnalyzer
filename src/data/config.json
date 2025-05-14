@@ -1,0 +1,26 @@
+{
+  "noise_types": {
+    "white": {
+      "enabled": true,
+      "level": 0.01
+    },
+    "pink": {
+      "enabled": false,
+      "level": 0.01
+    },
+    "brown": {
+      "enabled": false,
+      "level": 0.01
+    },
+    "beeping": {
+      "enabled": false
+    },
+    "talking": {
+      "enabled": false
+    }
+  },
+  "noise_bursts": {
+    "number": 20,
+    "duration": 1.0
+  }
+}
