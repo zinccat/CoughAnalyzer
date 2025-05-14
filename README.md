@@ -45,10 +45,21 @@ The pipeline performs the following steps:
 
 This allows for easy experimentation with different noise configurations without manually running multiple scripts.
 
-### Image segmentation
-For image segmentation, run `python src/data/gen_dataset.py` to generate the dataset with format as
-![](figures/data_format.jpg)
+### Image Segmentation using Yolov8
+1) Run `python src/data/gen_dataset.py` (waveform, image resized) or  `python src/data/gen_dataset_mfcc.py` (mfcc, image padded/truncated) to generate the dataset with the format as
+<img src="figures/data_format.jpg" alt="Data Format" width="300"/>
 
+2) Run `python src/yolo/yolo.py` to finetune Yolov8 on the cough dataset.
+
+3) Run `python src/data/gen_dataset_inference.py` (waveform, image resized) or  `python src/data/gen_dataset_inference_mfcc.py` (mfcc, image padded/truncated) to generate the dataset for inference (real data)
+
+4) Run `python src/yolo/inference.py` to run inference using the finetuned model on real data.
+
+5) Model Explanations:
+- `src/yolo/runs/detect/train`: 100 epochs, 640*640, waveform, image resized, 11s max length for training (any length for inference)
+- `src/yolo/runs/detect/train2`: 100 epochs, 640*640, mfcc, image resized, 11s max length (any length for inference)
+- `src/yolo/runs/detect/train5`: 150 epochs, 640*640, mfcc, image truncated/padded (always 11s), mosaic stopped for last 60 epochs
+- `src/yolo/runs/detect/train3`: 150 epochs, 640*640, mfcc, image truncated/padded (always 11s), training data with noise, mosaic stopped for last 60 epochs
 
 
 ### Audio classification with Wav2Vec2
@@ -56,12 +67,32 @@ Generate HuggingFace dataset with `python src/data/hf_dataset.py`
 
 Train and evaluate the model with `python src/models/wav2vec2.py`
 
-This should give around 95% acc on test set.
+This should give around 95% accuracy on the test set.
 
 ## Results
-### Yolo Cough Detection Results
-Validation Set Labels:
-![](src/yolo/runs/detect/val/val_batch0_labels.jpg)
+### Yolo Cough Detection Results (Train3)
+Metrics:
 
-Validation Set Predictions (conf=0.3, iou=0.4):
-![](src/yolo/runs/detect/val/val_batch0_pred.jpg)
+<img src="src/yolo/runs/detect/train3/results.png" alt="Data Format" width="600"/>
+
+Validation Set Labels vs Validation Set Predictions:
+<table>
+  <tr>
+    <td><img src="src/yolo/runs/detect/train3/val_batch0_labels.jpg" width="600"/></td>
+    <td><img src="src/yolo/runs/detect/train3/val_batch0_pred.jpg" width="600"/></td>
+  </tr>
+</table>
+
+# Using Noisy Data for Segmentation Testing:
+- Clone the coughSegmentation dataset into the root of your local repository (in CoughAnalyzer/)
+- Run a command like:  python3 src/data/add_noise.py \
+  --white_level 0.03 \
+  --noise_burst_num 10 \
+  --noise_burst_duration 0.5 \
+  --beeping True \
+  --talking True
+
+to generate noisy audio files. 
+
+Similarly, simply run ./noise_to_yolo_pipeline.sh to run the entire pipeline for the YOLO model
+
